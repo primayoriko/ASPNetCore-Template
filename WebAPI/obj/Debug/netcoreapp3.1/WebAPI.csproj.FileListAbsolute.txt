@@ -1,0 +1,10 @@
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\bin\Debug\netcoreapp3.1\appsettings.json
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\bin\Debug\netcoreapp3.1\WebAPI.exe
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.csprojAssemblyReference.cache
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.AssemblyInfoInputs.cache
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.AssemblyInfo.cs
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.RazorTargetAssemblyInfo.cache
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\obj\Debug\netcoreapp3.1\staticwebassets\WebAPI.StaticWebAssets.Manifest.cache
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\WebAPI\obj\Debug\netcoreapp3.1\staticwebassets\WebAPI.StaticWebAssets.xml
