@@ -18,6 +18,7 @@ namespace WebAPI.Models
         [Required]
         public string Name { set; get; }
 
+        // In case have relation with other table
         public Template2Class Template2 { set; get; }
         
     }
