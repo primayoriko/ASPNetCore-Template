@@ -24,7 +24,7 @@ namespace ODataAPI.Controllers
         }
 
         // You can define as much endpoints as needed to give maximum usage that can be achieved
-        // But here I give you some endpoint examples, as written below 
+        // But here I give you some basic endpoint examples, as written below 
 
         // GET: api/<ODataClientController>
         [HttpGet]

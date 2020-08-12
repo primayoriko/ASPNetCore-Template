@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.Edm;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace ODataAPI
 {
@@ -105,6 +104,7 @@ namespace ODataAPI
             // As said before, routing in OData Service using UseMvc, not UseEndpoint
             app.UseMvc(routeBuilder =>
             {
+                // This is setting that needed for setup an OData Service controller
                 routeBuilder.Select().Expand().Count().Filter().OrderBy().SkipToken().Build();
                 routeBuilder.MapODataServiceRoute("odata", "odata", GetEdmModel());
             });

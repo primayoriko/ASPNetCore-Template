@@ -22,6 +22,9 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
+        // You can define as much endpoints as needed to give maximum usage that can be achieved
+        // But here I give you some basic endpoint examples, as written below 
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TemplateClass>>> GetEn()
         {
