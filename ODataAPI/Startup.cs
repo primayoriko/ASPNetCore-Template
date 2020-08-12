@@ -7,15 +7,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebAPI.Models;
+using ODataAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OData.Edm;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
-// If you use Swagger API for documentation
-//using Swashbuckle.AspNetCore;
-//using Microsoft.OpenApi.Models;
-
-namespace WebAPI
+namespace ODataAPI
 {
     public class Startup
     {
@@ -27,6 +26,15 @@ namespace WebAPI
             _env = env;
         }
 
+        // Static method for defining model for OData API, such as Table relation, etc
+        // This is needed for OData service, as it wouldn't read relation from OnModelCreating method in DBContext 
+        private static IEdmModel GetEdmModel()
+        {
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<TemplateClass>("TemplateClasses").EntityType.HasKey(e => e.Id);
+            builder.EntitySet<Template2Class>("Template2Classes").EntityType.HasKey(e => e.Grade);
+            return builder.GetEdmModel();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -56,32 +64,17 @@ namespace WebAPI
             });
 
             // You can add service to be available here, so the program could inject the service later (Dependency Injection)
-            // for example this one
+            // Below are the examples
 
-            // Swagger Service
-            /*services.AddSwaggerGen(c =>
+            services.AddControllers(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "AgateSwagger",
-                    Description = "API Documentation for Agate Project Training",
-                    TermsOfService = new Uri("http://github.com/primayoriko/"),
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Prima Yoriko",
-                        Email = "prima.yoriko@gmail.com",
-                        Url = new Uri("http://primayoriko.github.io"),
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "AGATE",
-                        Url = new Uri("https://agate.id"),
-                    }
-                });
-            });*/
+                // To Use Odata service, routing is highly recommended to use UseMvc (not UseEndpoint) as in v2.x, because all of the tutorial I read use this configuration
+                // So this config is neccessary 
+                options.EnableEndpointRouting = false;
+            })
+                    .AddNewtonsoftJson();
 
-            services.AddControllers().AddNewtonsoftJson(); // this newtonsoftjson are neccessary for PATCH method in controller
+            services.AddOData(); // this newtonsoftjson are neccessary for PATCH method in controller
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,24 +99,14 @@ namespace WebAPI
             app.UseRouting();
 
             // You can Add middleware for pipelining of request here (after routing)
-            // for example UseAuthorization, UseSwagger or your own custom middleware as below
-
-            // You can access this TemplateMiddleware class in Controllers/TemplateMiddleware.cs
-            //app.UseMiddleware<TemplateMiddleware>();
-            
-            /* app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgateSwagger");
-
-            }); */
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            // As said before, routing in OData Service using UseMvc, not UseEndpoint
+            app.UseMvc(routeBuilder =>
             {
-                endpoints.MapControllers();
+                routeBuilder.Select().Expand().Count().Filter().OrderBy().SkipToken().Build();
+                routeBuilder.MapODataServiceRoute("odata", "odata", GetEdmModel());
             });
         }
     }

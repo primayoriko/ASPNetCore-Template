@@ -36,3 +36,5 @@ D:\Kuliah\Internship\Agate\ASPNetCore-Template\MVCApp\bin\Debug\netcoreapp3.1\Sw
 D:\Kuliah\Internship\Agate\ASPNetCore-Template\MVCApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Kuliah\Internship\Agate\ASPNetCore-Template\MVCApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Kuliah\Internship\Agate\ASPNetCore-Template\MVCApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\MVCApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Kuliah\Internship\Agate\ASPNetCore-Template\MVCApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

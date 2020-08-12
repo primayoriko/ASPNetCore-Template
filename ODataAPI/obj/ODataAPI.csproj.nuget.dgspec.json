@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\MVCApp\\MVCApp.csproj": {}
+    "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\ODataAPI\\ODataAPI.csproj": {}
   },
   "projects": {
-    "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\MVCApp\\MVCApp.csproj": {
+    "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\ODataAPI\\ODataAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\MVCApp\\MVCApp.csproj",
-        "projectName": "MVCApp",
-        "projectPath": "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\MVCApp\\MVCApp.csproj",
+        "projectUniqueName": "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\ODataAPI\\ODataAPI.csproj",
+        "projectName": "ODataAPI",
+        "projectPath": "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\ODataAPI\\ODataAPI.csproj",
         "packagesPath": "C:\\Users\\YORIKO\\.nuget\\packages\\",
-        "outputPath": "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\MVCApp\\obj\\",
+        "outputPath": "D:\\Kuliah\\Internship\\Agate\\ASPNetCore-Template\\ODataAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -41,25 +41,41 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Microsoft.AspNetCore.JsonPatch": {
-              "target": "Package",
-              "version": "[3.1.6, )"
-            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.1.6, )"
+            },
+            "Microsoft.AspNetCore.OData": {
+              "target": "Package",
+              "version": "[7.4.1, )"
+            },
+            "Microsoft.Data.OData": {
+              "target": "Package",
+              "version": "[5.8.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.6, )"
             },
-            "Newtonsoft.Json": {
+            "Microsoft.OData.Core": {
               "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[7.7.0, )"
+            },
+            "Microsoft.OData.Edm": {
+              "target": "Package",
+              "version": "[7.7.0, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[3.1.2, )"
+            },
+            "Simple.OData.Client": {
+              "target": "Package",
+              "version": "[5.12.0, )"
+            },
+            "Simple.OData.V4.Client": {
+              "target": "Package",
+              "version": "[5.12.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
