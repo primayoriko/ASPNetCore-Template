@@ -1,8 +1,10 @@
-﻿@using System.Security.Principal
+﻿@* This partial page/view are only used for Identity Service, in case we need authentication purpose *@
+
+@using System.Security.Principal
 @using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<StudentUser> SignInManager
-@inject UserManager<StudentUser> UserManager
+@inject SignInManager<TemplateIdentityUser> SignInManager
+@inject UserManager<TemplateIdentityUser> UserManager
 
 <div>
     @if (User.Identity.IsAuthenticated)
@@ -17,7 +19,7 @@
                         Logout
                     </button>
                 </form>
-                
+
             </li>
         </ul>
     }

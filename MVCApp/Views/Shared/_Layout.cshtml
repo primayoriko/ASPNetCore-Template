@@ -1,9 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@* These dependencies are added when we use localization-globalization feature/service only *@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Agate_View</title>
+    @* We can use line below if we use localization-globalization feature/service *@
+    @*<title>@ViewData["Title"] - @Localizer["MVCApp"]</title>*@
+    @* Or if not, just add as below *@
+    <title>@ViewData["Title"] - MVCApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -25,19 +32,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Classes" asp-action="Index">Classes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Template" asp-action="Index">Basic</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Students2" asp-action="Index">Students2 (With HTTP Req)</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TemplateAPIFetch" asp-action="Index">API Fetcher</a>
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    @await Html.PartialAsync("_AuthPartial")
-                </div>
+                @* div below are only added if we use Identity feature/service for authentication purpose *@
+                @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            @await Html.PartialAsync("_AuthPartial")
+        </div>*@
             </div>
         </nav>
     </header>
@@ -51,7 +56,10 @@
         <div class="container">
             &copy; 2020 - Agate_View - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-        <div class="col-sm-6 text-right"> @await Html.PartialAsync("_SelectLanguagePartial") </div>
+        @* div below are only added if we use localization-globalization feature/service *@
+        @*<div class="col-sm-6 text-right">
+            @await Html.PartialAsync("_SelectLanguagePartial")
+        </div>*@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

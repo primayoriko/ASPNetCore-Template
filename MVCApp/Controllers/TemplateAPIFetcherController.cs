@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 
 namespace MVCApp.Controllers
 {
-    public class TemplateAPIFetchController : Controller
+    public class TemplateAPIFetcherController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        public TemplateAPIFetchController(IHttpClientFactory clientFactory)
+        public TemplateAPIFetcherController(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }

@@ -156,7 +156,7 @@ namespace MVCApp
                 app.UseHsts();
             }
 
-            // The lines/commands below are added when we use Localization-Globalization service
+            // The lines/commands below are added when we use localization-globalization feature/service
             /*var supportedCultures = new[] { "en-US", "fr", "id" };
             var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
                 .AddSupportedCultures(supportedCultures)
@@ -184,7 +184,7 @@ namespace MVCApp
 
             app.UseAuthorization();
 
-            // The lines/commands below are added when we use Localization-Globalization service
+            // The lines/commands below are added when we use localization-globalization feature/service
 
             /*var requestProvider = new RouteDataRequestCultureProvider();
             localizationOptions.RequestCultureProviders.Insert(0, requestProvider);
@@ -209,7 +209,7 @@ namespace MVCApp
                 });
             });*/
 
-            // Or else you add this line (NOT use localization-globalization service) 
+            // Or else you add this line (NOT use localization-globalization feature/service) 
 
             app.UseEndpoints(endpoints =>
             {
