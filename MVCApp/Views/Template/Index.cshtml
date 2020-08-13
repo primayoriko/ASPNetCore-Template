@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Agate_Model.Student>
+﻿@model IEnumerable<TemplateClass>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Template Entity</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,16 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StudentId)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Grade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClassNumber)
             </th>
             <th></th>
         </tr>
@@ -32,21 +26,15 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StudentId)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Grade)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClassNumber)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

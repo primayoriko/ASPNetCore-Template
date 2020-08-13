@@ -1,87 +1,234 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+using Newtonsoft.Json;
 
 namespace MVCApp.Controllers
 {
     public class TemplateAPIFetchController : Controller
     {
-        // GET: APIFetchController
-        public ActionResult Index()
+        private readonly IHttpClientFactory _clientFactory;
+
+        public TemplateAPIFetchController(IHttpClientFactory clientFactory)
+        {
+            _clientFactory = clientFactory;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:44392/api/Students");
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                var data = JsonConvert.DeserializeObject<IEnumerable<TemplateClass>>(jsonData);
+                return View(data);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        // GET: Students/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+               $"https://localhost:44392/api/Students/{id}");
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                var data = JsonConvert.DeserializeObject<TemplateClass>(jsonData);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return View(data);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        // GET: Students/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // GET: APIFetchController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: APIFetchController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: APIFetchController/Create
+        // POST: Students/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("StudentId,Name,ClassNumber,Grade")] Student student)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                var studentJson = new StringContent(
+                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(student),
+                    Encoding.UTF8, "application/json");
+
+                var client = _clientFactory.CreateClient();
+
+                var response = await client.PostAsync("https://localhost:44392/api/Students/", studentJson);
+
+                var success = true;
+
+                try
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+                catch (Exception)
+                {
+                    success = false;
+                }
+
+                if (success)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                //_context.Add(student);
+                //await _context.SaveChangesAsync();
             }
-            catch
+            return View(student);
+        }
+
+        // GET: Students/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
             {
-                return View();
+                return NotFound();
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+               $"https://localhost:44392/api/Students/{id}");
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                var data = JsonConvert.DeserializeObject<TemplateClass>(jsonData);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return View(data);
+            }
+            else
+            {
+                return NotFound();
             }
         }
 
-        // GET: APIFetchController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: APIFetchController/Edit/5
+        // POST: Students/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("StudentId,Name,ClassNumber,Grade")] Student student)
         {
-            try
+            if (id != student.StudentId)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            if (ModelState.IsValid)
             {
-                return View();
+                //_context.Update(student);
+                //await _context.SaveChangesAsync();
+                var studentJson = new StringContent(
+                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(student),
+                    Encoding.UTF8,
+                    "application/json");
+
+                var client = _clientFactory.CreateClient();
+
+                var response = await client.PutAsync($"https://localhost:44392/api/Students/{id}",
+                    studentJson);
+                var success = true;
+
+                try
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+                catch (Exception)
+                {
+                    success = false;
+                }
+                if (success)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(student);
+        }
+
+        // GET: Students/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+               $"https://localhost:44392/api/Students/{id}");
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                var data = JsonConvert.DeserializeObject<TemplateClass>(jsonData);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return View(data);
+            }
+            else
+            {
+                return NotFound();
             }
         }
 
-        // GET: APIFetchController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: APIFetchController/Delete/5
-        [HttpPost]
+        // POST: Students/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var client = _clientFactory.CreateClient();
+            var response = await client.DeleteAsync($"https://localhost:44392/api/Students/{id}");
+
+            response.EnsureSuccessStatusCode();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
