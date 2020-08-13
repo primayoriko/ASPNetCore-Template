@@ -39,19 +39,19 @@ namespace WebAPI
                 // Basic usage
                 // Note: Here we use MySQL database, but you should remember that you can change the code to implement
                 //          with other DB such as Microsoft MSSQL or InMemory DB
-                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("Agate_API"));
+                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("WebAPI"));
 
                 // Or if use app secret (you can read about it in the docs from Microsoft ) in dev mode, you can use code as below
                 /*if (_env.IsDevelopment())
                 {
                     // this Configuration["dbpass"] is from the app secret
                     var connnectionStrings = $"{Configuration["ConnectionStrings:DefaultConnection"]};password={Configuration["dbpass"]}";
-                    options.UseMySql(connnectionStrings, b => b.MigrationsAssembly("Agate_API"));
+                    options.UseMySql(connnectionStrings, b => b.MigrationsAssembly("WebAPI"));
                 }
                 else
                 {
                     var connnectionStrings = $"{Configuration["ConnectionStrings:DefaultConnection"]}";
-                    options.UseMySql(connnectionStrings, b => b.MigrationsAssembly("Agate_API"));
+                    options.UseMySql(connnectionStrings, b => b.MigrationsAssembly("WebAPI"));
                 }*/
             });
 
@@ -90,7 +90,7 @@ namespace WebAPI
             // You can Add middleware for pipelining of request here (before routing)
             // for example UseDeveloperExceptionPage below
 
-            // A type of conditional pipelining
+            // Below is a type of conditional pipelining
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -99,7 +99,6 @@ namespace WebAPI
             {
                 app.UseExceptionHandler("/Error");
             }
-
 
             app.UseHttpsRedirection();
 

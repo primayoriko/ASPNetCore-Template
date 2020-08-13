@@ -1,20 +1,24 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Localization.Routing;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCApp.Models;
+
+// If use localization-globalization service
+/*using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization.Routing;
+using System.Globalization;*/
+
+// If use authentication (user system like login, etc) or Identity service
+//using Microsoft.AspNetCore.Identity;
 
 namespace MVCApp
 {
@@ -25,24 +29,48 @@ namespace MVCApp
             Configuration = configuration;
         }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TemplateDbContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            {
+                // Add configuration to connect DB here, such as connectionstring as below
+
+                // Basic usage
+                // Note: Here we use MySQL database, but you should remember that you can change the code to implement
+                //          with other DB such as Microsoft MSSQL or InMemory DB
+                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("MVCApp"));
+
+                // Or if use app secret (you can read about it in the docs from Microsoft ) in dev mode, you can use code as below
+                /*if (_env.IsDevelopment())
+                {
+                    // this Configuration["dbpass"] is from the app secret
+                    var connnectionStrings = $"{Configuration["ConnectionStrings:DefaultConnection"]};password={Configuration["dbpass"]}";
+                    options.UseMySql(connnectionStrings, b => b.MigrationsAssembly("MVCApp"));
+                }
+                else
+                {
+                    var connnectionStrings = $"{Configuration["ConnectionStrings:DefaultConnection"]}";
+                    options.UseMySql(connnectionStrings, b => b.MigrationsAssembly("MVCApp"));
+                }*/
+            });
 
             services.AddHttpClient();
 
-            services.AddDbContext<TemplateIdentityDbContext>(options =>
+            // This is Identity service that we added for authentication (user system like login, etc) purpose
+            /*services.AddDbContext<TemplateIdentityDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("AuthConnection"),
                 x => x.MigrationsAssembly("Agate_View")));
 
             services.AddIdentity<TemplateIdentityUser, IdentityRole>()
                     .AddEntityFrameworkStores<TemplateIdentityDbContext>()
-                    .AddDefaultTokenProviders();
+                    .AddDefaultTokenProviders();*/
 
+
+            // These are lines/commands that we used to configure Identity service
             /*services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -77,16 +105,11 @@ namespace MVCApp
 
             services.AddControllersWithViews();
 
-            services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+            // These are lines/commands that we used to make Localization-Globalization service
+            //services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 
-            services.AddMvc()
-                .AddViewLocalization(
-                    LanguageViewLocationExpanderFormat.Suffix
-                 //, opts => { opts.ResourcesPath = "Resources";}
-                 )
-                .AddDataAnnotationsLocalization();
-
-            services.Configure<RequestLocalizationOptions>(
+            // Used to configure Localization-Globalization service
+            /*services.Configure<RequestLocalizationOptions>(
                 opts =>
                 {
                     var supportedCultures = new List<CultureInfo>
@@ -104,13 +127,25 @@ namespace MVCApp
                     opts.SupportedCultures = supportedCultures;
                     // UI strings that we have localized.
                     opts.SupportedUICultures = supportedCultures;
-                });
+                });*/
+
+            services.AddMvc();
+                // Line below are added when we use Localization-Globalization service
+                /*.AddViewLocalization(
+                    LanguageViewLocationExpanderFormat.Suffix
+                 //, opts => { opts.ResourcesPath = "Resources";}
+                 )
+                .AddDataAnnotationsLocalization();*/
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // You can Add middleware for pipelining of request here (before routing)
+            // for example UseDeveloperExceptionPage below
+
+            // Below is a type of conditional pipelining
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -118,11 +153,11 @@ namespace MVCApp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            var supportedCultures = new[] { "en-US", "fr", "id" };
+            // The lines/commands below are added when we use Localization-Globalization service
+            /*var supportedCultures = new[] { "en-US", "fr", "id" };
             var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
@@ -132,24 +167,26 @@ namespace MVCApp
                                     .First();
             cookieProvider.CookieName = "UserCulture";
 
-            app.UseRequestLocalization(localizationOptions);
+            app.UseRequestLocalization(localizationOptions);*/
 
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
-
             app.UseRequestLocalization();
-
-
-            app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            // You can Add middleware for pipelining of request here (after routing)
+
+            // Line below is added when we use Identity service for authentication
+            //app.UseAuthentication();
+
             app.UseAuthorization();
 
-            var requestProvider = new RouteDataRequestCultureProvider();
+            // The lines/commands below are added when we use Localization-Globalization service
+
+            /*var requestProvider = new RouteDataRequestCultureProvider();
             localizationOptions.RequestCultureProviders.Insert(0, requestProvider);
 
             app.UseRouter(routes =>
@@ -164,19 +201,22 @@ namespace MVCApp
 
                     subApp.UseEndpoints(mvcRoutes =>
                     {
+                        // localization-globalization setting using route as parameter
                         mvcRoutes.MapControllerRoute(
                             name: "default",
                             pattern: "{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
                     });
                 });
-            });
+            });*/
 
-            /*app.UseEndpoints(endpoints =>
+            // Or else you add this line (NOT use localization-globalization service) 
+
+            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
-            });*/
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
