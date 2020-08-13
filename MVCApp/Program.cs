@@ -23,7 +23,7 @@ namespace MVCApp
                 var services = scope.ServiceProvider;
                 try
                 {
-                    SeedData.Initialize(services);
+                    TemplateSeedData.Initialize(services);
                 }
                 catch (Exception e)
                 {

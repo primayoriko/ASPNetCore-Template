@@ -19,6 +19,9 @@ namespace MVCApp.Controllers
             _clientFactory = clientFactory;
         }
 
+        // Below is basic implementation of basic API fetcher controller that has CRUD functionality
+        // You can customize the functionality by changing these implementations
+
         public async Task<IActionResult> Index()
         {
             var request = new HttpRequestMessage(HttpMethod.Get,

@@ -18,6 +18,9 @@ namespace MVCApp.Controllers
             _context = context;
         }
 
+        // Below is basic implementation of basic controller that has CRUD functionality
+        // You can customize the functionality by changing these implementations
+
         // GET: template
         public async Task<IActionResult> Index()
         {

@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace WebAPI.Models
 {
-    public class SeedData
+    public class TemplateSeedData
     {
         // Static method for adding data in case your database still empty
         // Note : Very useful for testing purpose
