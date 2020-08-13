@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVCApp.Models;
 using Newtonsoft.Json;
@@ -22,7 +22,7 @@ namespace MVCApp.Controllers
         public async Task<IActionResult> Index()
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
-                "https://localhost:44392/api/Students");
+                "<API Link and Path>");
 
             var client = _clientFactory.CreateClient();
 
@@ -39,7 +39,7 @@ namespace MVCApp.Controllers
                 return NotFound();
             }
         }
-        // GET: Students/Details/5
+        // GET: template/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,7 +48,7 @@ namespace MVCApp.Controllers
             }
 
             var request = new HttpRequestMessage(HttpMethod.Get,
-               $"https://localhost:44392/api/Students/{id}");
+               $"<API Link and Path>/{id}");
 
             var client = _clientFactory.CreateClient();
 
@@ -70,28 +70,26 @@ namespace MVCApp.Controllers
             }
         }
 
-        // GET: Students/Create
+        // GET: template/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: template/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,Name,ClassNumber,Grade")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,Name,Grade")] TemplateClass entity)
         {
             if (ModelState.IsValid)
             {
-                var studentJson = new StringContent(
-                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(student),
+                var entityJson = new StringContent(
+                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(entity),
                     Encoding.UTF8, "application/json");
 
                 var client = _clientFactory.CreateClient();
 
-                var response = await client.PostAsync("https://localhost:44392/api/Students/", studentJson);
+                var response = await client.PostAsync("<API Link and Path>/", entityJson);
 
                 var success = true;
 
@@ -99,8 +97,9 @@ namespace MVCApp.Controllers
                 {
                     response.EnsureSuccessStatusCode();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
                     success = false;
                 }
 
@@ -108,13 +107,13 @@ namespace MVCApp.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }
-                //_context.Add(student);
+                //_context.Add(entity);
                 //await _context.SaveChangesAsync();
             }
-            return View(student);
+            return View(entity);
         }
 
-        // GET: Students/Edit/5
+        // GET: template/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,7 +122,7 @@ namespace MVCApp.Controllers
             }
 
             var request = new HttpRequestMessage(HttpMethod.Get,
-               $"https://localhost:44392/api/Students/{id}");
+               $"<API Link and Path>/{id}");
 
             var client = _clientFactory.CreateClient();
 
@@ -145,39 +144,37 @@ namespace MVCApp.Controllers
             }
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: template/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentId,Name,ClassNumber,Grade")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade")] TemplateClass entity)
         {
-            if (id != student.StudentId)
+            if (id != entity.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                //_context.Update(student);
-                //await _context.SaveChangesAsync();
-                var studentJson = new StringContent(
-                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(student),
+                var entityJson = new StringContent(
+                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(entity),
                     Encoding.UTF8,
                     "application/json");
 
                 var client = _clientFactory.CreateClient();
 
-                var response = await client.PutAsync($"https://localhost:44392/api/Students/{id}",
-                    studentJson);
+                var response = await client.PutAsync($"<API Link and Path>/{id}",
+                    entityJson);
                 var success = true;
 
                 try
                 {
                     response.EnsureSuccessStatusCode();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
                     success = false;
                 }
                 if (success)
@@ -185,10 +182,10 @@ namespace MVCApp.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            return View(student);
+            return View(entity);
         }
 
-        // GET: Students/Delete/5
+        // GET: template/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -197,7 +194,7 @@ namespace MVCApp.Controllers
             }
 
             var request = new HttpRequestMessage(HttpMethod.Get,
-               $"https://localhost:44392/api/Students/{id}");
+               $"<API Link and Path>/{id}");
 
             var client = _clientFactory.CreateClient();
 
@@ -219,13 +216,13 @@ namespace MVCApp.Controllers
             }
         }
 
-        // POST: Students/Delete/5
+        // POST: template/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var client = _clientFactory.CreateClient();
-            var response = await client.DeleteAsync($"https://localhost:44392/api/Students/{id}");
+            var response = await client.DeleteAsync($"<API Link and Path>/{id}");
 
             response.EnsureSuccessStatusCode();
             return RedirectToAction(nameof(Index));

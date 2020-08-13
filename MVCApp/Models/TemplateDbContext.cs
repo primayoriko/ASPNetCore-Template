@@ -32,9 +32,8 @@ namespace MVCApp.Models
             //For define relation, in case youre using use many entity
             modelBuilder.Entity<TemplateClass>()
                 .HasOne(s => s.Template2)
-                .WithMany(c => c.Template);
-                // If TemplateClass have foreign key from Template2Class, add line below
-                //.HasForeignKey(s => new { s.Grade, s.ClassNumber });
+                .WithMany(c => c.Template)
+                .HasForeignKey(s => s.Grade);
         }
     }
 

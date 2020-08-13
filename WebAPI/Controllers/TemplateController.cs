@@ -60,8 +60,9 @@ namespace WebAPI.Controllers
                 _context.Entry(entity).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException e)
             {
+                System.Diagnostics.Debug.WriteLine(e.Message);
                 if (!EntityExists(id))
                 {
                     return NotFound();
@@ -84,8 +85,9 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
+                System.Diagnostics.Debug.WriteLine(e.Message);
                 if (EntityExists(entity.Id))
                 {
                     return Conflict();
@@ -129,8 +131,9 @@ namespace WebAPI.Controllers
                     _context.Entry(entity).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
                     return BadRequest(ModelState);
                 }
 

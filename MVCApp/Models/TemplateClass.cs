@@ -18,7 +18,12 @@ namespace MVCApp.Models
         [Required]
         public string Name { set; get; }
 
-        // In case have relation with other table
+        // In case have relation with other table, for example
+
+        // Foreign key to another entity example
+        public int Grade { set; get; }
+
+        // Pointer to another entity example
         public Template2Class Template2 { set; get; }
         
     }

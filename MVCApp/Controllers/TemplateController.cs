@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCApp.Models;
 
@@ -18,14 +18,14 @@ namespace MVCApp.Controllers
             _context = context;
         }
 
-        // GET: entitys
+        // GET: template
         public async Task<IActionResult> Index()
         {
             var context = _context.TemplateClasses.Where(s => true);
             return View(await context.ToListAsync());
         }
 
-        // GET: entitys/Details/5
+        // GET: template/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,20 +43,17 @@ namespace MVCApp.Controllers
             return View(entity);
         }
 
-        // GET: entitys/Create
+        // GET: template/Create
         public IActionResult Create()
         {
-            ViewData["Grade"] = new SelectList(_context.Class, "Grade", "Grade");
-            ViewData["ClassNumber"] = new SelectList(_context.Class, "ClassNumber", "ClassNumber");
+            ViewData["Grade"] = new SelectList(_context.Template2Classes, "Grade", "Grade");
             return View();
         }
 
-        // POST: entitys/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: template/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("entityId,Name,ClassNumber,Grade")] entity entity)
+        public async Task<IActionResult> Create([Bind("Id,Name,Grade")] TemplateClass entity)
         {
             if (ModelState.IsValid)
             {
@@ -64,12 +61,11 @@ namespace MVCApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Grade"] = new SelectList(_context.Class, "Grade", "Grade", entity.Grade);
-            ViewData["ClassNumber"] = new SelectList(_context.Class, "ClassNumber", "ClassNumber");
+            ViewData["Grade"] = new SelectList(_context.Template2Classes, "Grade", "Grade");
             return View(entity);
         }
 
-        // GET: entitys/Edit/5
+        // GET: template/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,24 +73,21 @@ namespace MVCApp.Controllers
                 return NotFound();
             }
 
-            var entity = await _context.entity.FindAsync(id);
+            var entity = await _context.TemplateClasses.FindAsync(id);
             if (entity == null)
             {
                 return NotFound();
             }
-            ViewData["Grade"] = new SelectList(_context.Class, "Grade", "Grade", entity.Grade);
-            ViewData["ClassNumber"] = new SelectList(_context.Class, "ClassNumber", "ClassNumber", entity.ClassNumber);
+            ViewData["Grade"] = new SelectList(_context.TemplateClasses, "Grade", "Grade", entity.Grade);
             return View(entity);
         }
 
-        // POST: entitys/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: template/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("entityId,Name,ClassNumber,Grade")] entity entity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade")] TemplateClass entity)
         {
-            if (id != entity.entityId)
+            if (id != entity.Id)
             {
                 return NotFound();
             }
@@ -106,9 +99,10 @@ namespace MVCApp.Controllers
                     _context.Update(entity);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException e)
                 {
-                    if (!entityExists(entity.entityId))
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                    if (!EntityExists(entity.Id))
                     {
                         return NotFound();
                     }
@@ -119,11 +113,11 @@ namespace MVCApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Grade"] = new SelectList(_context.Class, "Grade", "Grade", entity.Grade);
+            ViewData["Grade"] = new SelectList(_context.TemplateClasses, "Grade", "Grade", entity.Grade);
             return View(entity);
         }
 
-        // GET: entitys/Delete/5
+        // GET: template/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,9 +125,8 @@ namespace MVCApp.Controllers
                 return NotFound();
             }
 
-            var entity = await _context.entity
-                .Include(s => s.CurrentClass)
-                .FirstOrDefaultAsync(m => m.entityId == id);
+            var entity = await _context.TemplateClasses
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (entity == null)
             {
                 return NotFound();
@@ -142,20 +135,20 @@ namespace MVCApp.Controllers
             return View(entity);
         }
 
-        // POST: entitys/Delete/5
+        // POST: template/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var entity = await _context.entity.FindAsync(id);
-            _context.entity.Remove(entity);
+            var entity = await _context.TemplateClasses.FindAsync(id);
+            _context.TemplateClasses.Remove(entity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool entityExists(int id)
+        private bool EntityExists(int id)
         {
-            return _context.entity.Any(e => e.entityId == id);
+            return _context.TemplateClasses.Any(e => e.Id == id);
         }
     }
 }
