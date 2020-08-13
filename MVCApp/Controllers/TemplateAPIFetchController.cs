@@ -7,27 +7,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MVCApp.Controllers
 {
-    public class AuthenticationController : Controller
+    public class TemplateAPIFetchController : Controller
     {
-        // GET: AuthenticationController
+        // GET: APIFetchController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: AuthenticationController/Details/5
+        // GET: APIFetchController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: AuthenticationController/Create
+        // GET: APIFetchController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AuthenticationController/Create
+        // POST: APIFetchController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -42,13 +42,13 @@ namespace MVCApp.Controllers
             }
         }
 
-        // GET: AuthenticationController/Edit/5
+        // GET: APIFetchController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: AuthenticationController/Edit/5
+        // POST: APIFetchController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -63,13 +63,13 @@ namespace MVCApp.Controllers
             }
         }
 
-        // GET: AuthenticationController/Delete/5
+        // GET: APIFetchController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: AuthenticationController/Delete/5
+        // POST: APIFetchController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

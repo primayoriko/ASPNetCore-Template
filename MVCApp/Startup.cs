@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Localization.Routing;
@@ -36,12 +35,12 @@ namespace MVCApp
 
             services.AddHttpClient();
 
-            services.AddDbContext<AuthContext>(options =>
+            services.AddDbContext<TemplateIdentityDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("AuthConnection"),
                 x => x.MigrationsAssembly("Agate_View")));
 
-            services.AddIdentity<StudentUser, IdentityRole>()
-                    .AddEntityFrameworkStores<AuthContext>()
+            services.AddIdentity<TemplateIdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<TemplateIdentityDbContext>()
                     .AddDefaultTokenProviders();
 
             /*services.Configure<IdentityOptions>(options =>
@@ -150,12 +149,8 @@ namespace MVCApp
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMvcWithDefaultRoute();
-
             var requestProvider = new RouteDataRequestCultureProvider();
             localizationOptions.RequestCultureProviders.Insert(0, requestProvider);
-
-
 
             app.UseRouter(routes =>
             {

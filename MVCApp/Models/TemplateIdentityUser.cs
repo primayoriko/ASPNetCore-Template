@@ -8,33 +8,22 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MVCApp.Models
 {
+    // This template class is optional, and only used when you use Identity service to make authentication in ASP NET Core
+    // You can remove it if not needed
+    // Used as a template for defining user data class
     public class TemplateIdentityUser : IdentityUser
     {
+        // IdentityUser class already has fields that needed for basic usage, 
+        // If you need to define additional field, just input as the example below
         [PersonalData]
         [Key]
-        [Display(Name = "Student ID")]
+        [Display(Name = "ID")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int StudentID { set; get; }
+        public int Id { set; get; }
 
         [PersonalData]
         [Required, MaxLength(256)]
         public string Name { set; get; }
 
-        [NotMapped]
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [NotMapped]
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-
-        [NotMapped]
-        [Display(Name = "Remember Me")]
-        public bool Remember { set; get; }
     }
 }
