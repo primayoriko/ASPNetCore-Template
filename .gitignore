@@ -1,3 +1,4 @@
-/MVCApp/bin/
-/WebAPI/bin/
-/ODataAPI/bin/
+MVCApp/bin/
+WebAPI/bin/
+ODataAPI/bin/
+.vs/
