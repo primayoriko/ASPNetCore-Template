@@ -1,4 +1,5 @@
 MVCApp/bin/
 WebAPI/bin/
 ODataAPI/bin/
+XUnitTest/bin/
 .vs/
