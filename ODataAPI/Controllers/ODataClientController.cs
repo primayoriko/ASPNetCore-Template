@@ -29,34 +29,34 @@ namespace ODataAPI.Controllers
         // GET: api/<ODataClientController>
         [HttpGet]
         [ActionName("GetAll")]
-        public async Task<ActionResult<IEnumerable<TemplateClass>>> Get()
+        public async Task<ActionResult<IEnumerable<TemplateEntity>>> Get()
         {
             var entities = await _client
-                                .For<TemplateClass>()
+                                .For<TemplateEntity>()
                                 .FindEntriesAsync();
-            return new ActionResult<IEnumerable<TemplateClass>>(entities);
+            return new ActionResult<IEnumerable<TemplateEntity>>(entities);
         }
 
         // GET api/<ODataClientController>/5
         [HttpGet("{id}")]
         [ActionName("Get")]
-        public async Task<ActionResult<TemplateClass>> Get(int id)
+        public async Task<ActionResult<TemplateEntity>> Get(int id)
         {
             var TemplateClass = await _client
-                                .For<TemplateClass>()
+                                .For<TemplateEntity>()
                                 .Filter(x => x.Id == id)
                                 .FindEntryAsync();
-            return new ActionResult<TemplateClass>(TemplateClass);
+            return new ActionResult<TemplateEntity>(TemplateClass);
         }
 
         // POST api/<ODataClientController>
         [HttpPost]
-        public async Task<ActionResult<TemplateClass>> Post([FromBody] TemplateClass entity)
+        public async Task<ActionResult<TemplateEntity>> Post([FromBody] TemplateEntity entity)
         {
             try
             {
                 var client = _client
-                                    .For<TemplateClass>()
+                                    .For<TemplateEntity>()
                                     .Set(entity);
                 var addTemplateClass = await client
                                     .InsertEntryAsync();
@@ -76,12 +76,12 @@ namespace ODataAPI.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult<TemplateClass>> UpdateName(int id, [FromBody] string name)
+        public async Task<ActionResult<TemplateEntity>> UpdateName(int id, [FromBody] string name)
         {
             try
             {
                 await _client
-                        .For<TemplateClass>()
+                        .For<TemplateEntity>()
                         .Key(id)
                         .Set(new { Name = name })
                         .UpdateEntryAsync();

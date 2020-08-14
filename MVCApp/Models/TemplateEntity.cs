@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models
+namespace MVCApp.Models
 {
-    public class TemplateClass
+    public class TemplateEntity
     {
         // Insert class field here, example
         
@@ -18,8 +18,13 @@ namespace WebAPI.Models
         [Required]
         public string Name { set; get; }
 
-        // In case have relation with other table
-        public Template2Class Template2 { set; get; }
+        // In case have relation with other table, for example
+
+        // Foreign key to another entity example
+        public int Grade { set; get; }
+
+        // Pointer to another entity example
+        public Template2Entity Template2 { set; get; }
         
     }
 }

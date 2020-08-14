@@ -23,11 +23,11 @@ namespace WebAPI.Models
                 else
                 {
                     context.Template2Classes.AddRange(
-                        new Template2Class
+                        new Template2Entity
                         {
                             Grade = 1
                         },
-                        new Template2Class
+                        new Template2Entity
                         {
                             Grade = 8
                         }
@@ -35,12 +35,12 @@ namespace WebAPI.Models
                     );
 
                     context.TemplateClasses.AddRange(
-                        new TemplateClass
+                        new TemplateEntity
                         {
                             Id = 12,
                             Name = "Hansel"
                         },
-                        new TemplateClass
+                        new TemplateEntity
                         {
                             Id = 13,
                             Name = "Gretel"

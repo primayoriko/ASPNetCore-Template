@@ -30,8 +30,8 @@ namespace ODataAPI
         private static IEdmModel GetEdmModel()
         {
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<TemplateClass>("TemplateClasses").EntityType.HasKey(e => e.Id);
-            builder.EntitySet<Template2Class>("Template2Classes").EntityType.HasKey(e => e.Grade);
+            builder.EntitySet<TemplateEntity>("TemplateClasses").EntityType.HasKey(e => e.Id);
+            builder.EntitySet<Template2Entity>("Template2Classes").EntityType.HasKey(e => e.Grade);
             return builder.GetEdmModel();
         }
 

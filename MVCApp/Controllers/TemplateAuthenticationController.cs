@@ -44,7 +44,7 @@ namespace MVCApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromForm]TemplateRegisterViewModelClass user)
+        public async Task<IActionResult> Register([FromForm]TemplateRegisterViewModel user)
         {
             if (!ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace MVCApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromForm] TemplateLoginViewModelClass user)
+        public async Task<IActionResult> Login([FromForm] TemplateLoginViewModel user)
         {
             if (!ModelState.IsValid)
             {

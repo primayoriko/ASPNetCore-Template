@@ -38,7 +38,7 @@ namespace ODataAPI.Controllers
         [HttpPost]
         [Route("template")]
         [ODataRoute("template")]
-        public async Task<ActionResult<TemplateClass>> Post([FromBody] TemplateClass entity)
+        public async Task<ActionResult<TemplateEntity>> Post([FromBody] TemplateEntity entity)
         {
             // Add your code below, this is an example for basic implementation
             if (!ModelState.IsValid)
@@ -63,7 +63,7 @@ namespace ODataAPI.Controllers
         [HttpPut]
         [Route("template({id})")]
         [ODataRoute("template({id})")]
-        public async Task<ActionResult<TemplateClass>> Put(int id, TemplateClass entity)
+        public async Task<ActionResult<TemplateEntity>> Put(int id, TemplateEntity entity)
         {
             // Add your code below, this is an example for basic implementation
             if (!ModelState.IsValid)
@@ -90,12 +90,12 @@ namespace ODataAPI.Controllers
         [HttpPatch]
         [Route("template({id})")]
         [ODataRoute("template({id})")]
-        public async Task<ActionResult<TemplateClass>> Patch([FromODataUri] int id, [FromBody] JsonPatchDocument<TemplateClass> entityPatch)
+        public async Task<ActionResult<TemplateEntity>> Patch([FromODataUri] int id, [FromBody] JsonPatchDocument<TemplateEntity> entityPatch)
         {
             // Add your code below, this is an example for basic implementation
             if (entityPatch != null && ModelState.IsValid)
             {
-                TemplateClass entity;
+                TemplateEntity entity;
                 try
                 {
                     entity = await _context.TemplateClasses.FindAsync(id);
@@ -117,7 +117,7 @@ namespace ODataAPI.Controllers
         [HttpDelete]
         [Route("template({id})")]
         [ODataRoute("template({id})")]
-        public async Task<ActionResult<TemplateClass>> Delete([FromODataUri] int id)
+        public async Task<ActionResult<TemplateEntity>> Delete([FromODataUri] int id)
         {
             // Add your code below, this is an example for basic implementation
             var entity = await _context.TemplateClasses.FindAsync(id);

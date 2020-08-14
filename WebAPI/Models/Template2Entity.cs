@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Models
 {
-    public class Template2Class
+    public class Template2Entity
     {
         [Key]
         public int Grade{ set; get; }
 
         // In case have relation with other table add this
-        public List<TemplateClass> Template { set; get; }
+        public List<TemplateEntity> Template { set; get; }
 
     }
 }

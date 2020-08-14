@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ODataAPI.Models
+namespace WebAPI.Models
 {
-    public class TemplateClass
+    public class TemplateEntity
     {
         // Insert class field here, example
         
@@ -19,7 +19,7 @@ namespace ODataAPI.Models
         public string Name { set; get; }
 
         // In case have relation with other table
-        public Template2Class Template2 { set; get; }
+        public Template2Entity Template2 { set; get; }
         
     }
 }

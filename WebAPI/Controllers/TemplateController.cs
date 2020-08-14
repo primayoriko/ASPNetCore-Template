@@ -26,14 +26,14 @@ namespace WebAPI.Controllers
         // But here I give you some basic endpoint examples, as written below 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TemplateClass>>> GetEn()
+        public async Task<ActionResult<IEnumerable<TemplateEntity>>> GetEn()
         {
             return await _context.TemplateClasses.ToListAsync();
         }
 
         // GET: api/Templates/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TemplateClass>> GetEntity(int id)
+        public async Task<ActionResult<TemplateEntity>> GetEntity(int id)
         {
             var entity = await _context.TemplateClasses.FindAsync(id);
 
@@ -47,7 +47,7 @@ namespace WebAPI.Controllers
 
         // PUT: api/Templates/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEntity(int id, TemplateClass entity)
+        public async Task<IActionResult> PutEntity(int id, TemplateEntity entity)
         {
             if (id != entity.Id)
             {
@@ -78,7 +78,7 @@ namespace WebAPI.Controllers
 
         // POST: api/Templates
         [HttpPost]
-        public async Task<ActionResult<TemplateClass>> PostEntity(TemplateClass entity)
+        public async Task<ActionResult<TemplateEntity>> PostEntity(TemplateEntity entity)
         {
             _context.TemplateClasses.Add(entity);
             try
@@ -103,7 +103,7 @@ namespace WebAPI.Controllers
 
         // DELETE: api/Templates/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TemplateClass>> DeleteEntity(int id)
+        public async Task<ActionResult<TemplateEntity>> DeleteEntity(int id)
         {
             var entity = await _context.TemplateClasses.FindAsync(id);
             if (entity == null)
@@ -118,11 +118,11 @@ namespace WebAPI.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<TemplateClass>> Patch(int id, [FromBody] JsonPatchDocument<TemplateClass> EntityPatch)
+        public async Task<ActionResult<TemplateEntity>> Patch(int id, [FromBody] JsonPatchDocument<TemplateEntity> EntityPatch)
         {
             if (EntityPatch != null && ModelState.IsValid)
             {
-                TemplateClass entity = null;
+                TemplateEntity entity = null;
                 try
                 {
                     entity = await _context.TemplateClasses.FindAsync(id);

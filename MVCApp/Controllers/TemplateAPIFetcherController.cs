@@ -34,7 +34,7 @@ namespace MVCApp.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string jsonData = response.Content.ReadAsStringAsync().Result;
-                var data = JsonConvert.DeserializeObject<IEnumerable<TemplateClass>>(jsonData);
+                var data = JsonConvert.DeserializeObject<IEnumerable<TemplateEntity>>(jsonData);
                 return View(data);
             }
             else
@@ -60,7 +60,7 @@ namespace MVCApp.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string jsonData = response.Content.ReadAsStringAsync().Result;
-                var data = JsonConvert.DeserializeObject<TemplateClass>(jsonData);
+                var data = JsonConvert.DeserializeObject<TemplateEntity>(jsonData);
                 if (data == null)
                 {
                     return NotFound();
@@ -82,12 +82,12 @@ namespace MVCApp.Controllers
         // POST: template/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Grade")] TemplateClass entity)
+        public async Task<IActionResult> Create([Bind("Id,Name,Grade")] TemplateEntity entity)
         {
             if (ModelState.IsValid)
             {
                 var entityJson = new StringContent(
-                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(entity),
+                    System.Text.Json.JsonSerializer.Serialize<TemplateEntity>(entity),
                     Encoding.UTF8, "application/json");
 
                 var client = _clientFactory.CreateClient();
@@ -134,7 +134,7 @@ namespace MVCApp.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string jsonData = response.Content.ReadAsStringAsync().Result;
-                var data = JsonConvert.DeserializeObject<TemplateClass>(jsonData);
+                var data = JsonConvert.DeserializeObject<TemplateEntity>(jsonData);
                 if (data == null)
                 {
                     return NotFound();
@@ -151,7 +151,7 @@ namespace MVCApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade")] TemplateClass entity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade")] TemplateEntity entity)
         {
             if (id != entity.Id)
             {
@@ -161,7 +161,7 @@ namespace MVCApp.Controllers
             if (ModelState.IsValid)
             {
                 var entityJson = new StringContent(
-                    System.Text.Json.JsonSerializer.Serialize<TemplateClass>(entity),
+                    System.Text.Json.JsonSerializer.Serialize<TemplateEntity>(entity),
                     Encoding.UTF8,
                     "application/json");
 
@@ -206,7 +206,7 @@ namespace MVCApp.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string jsonData = response.Content.ReadAsStringAsync().Result;
-                var data = JsonConvert.DeserializeObject<TemplateClass>(jsonData);
+                var data = JsonConvert.DeserializeObject<TemplateEntity>(jsonData);
                 if (data == null)
                 {
                     return NotFound();

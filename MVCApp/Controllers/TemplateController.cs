@@ -56,7 +56,7 @@ namespace MVCApp.Controllers
         // POST: template/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Grade")] TemplateClass entity)
+        public async Task<IActionResult> Create([Bind("Id,Name,Grade")] TemplateEntity entity)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace MVCApp.Controllers
         // POST: template/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade")] TemplateClass entity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade")] TemplateEntity entity)
         {
             if (id != entity.Id)
             {

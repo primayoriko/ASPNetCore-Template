@@ -15,22 +15,22 @@ namespace WebAPI.Models
         }
 
         //Insert all of db sets from your entities here, for example
-        public DbSet<TemplateClass> TemplateClasses { get; set; }
-        public DbSet<Template2Class> Template2Classes { get; set; }
+        public DbSet<TemplateEntity> TemplateClasses { get; set; }
+        public DbSet<Template2Entity> Template2Classes { get; set; }
 
         // This is optional method, in case you want define relation of tables yourself, 
         // with  Fluent API
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // For define Pimary key
-            modelBuilder.Entity<Template2Class>()
+            modelBuilder.Entity<Template2Entity>()
                 .HasKey(s => s.Grade);
 
-            modelBuilder.Entity<TemplateClass>()
+            modelBuilder.Entity<TemplateEntity>()
                 .HasKey(s => s.Id);
 
             //For define relation, in case youre using use many entity
-            modelBuilder.Entity<TemplateClass>()
+            modelBuilder.Entity<TemplateEntity>()
                 .HasOne(s => s.Template2)
                 .WithMany(c => c.Template);
                 // If TemplateClass have foreign key from Template2Class, add line below

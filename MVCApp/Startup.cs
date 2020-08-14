@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCApp.Models;
+using MVCApp.Controllers;
 
 // If use localization-globalization service
 /*using Microsoft.AspNetCore.Localization;
@@ -134,7 +135,7 @@ namespace MVCApp
                 /*.AddViewLocalization(
                     LanguageViewLocationExpanderFormat.Suffix
                  //, opts => { opts.ResourcesPath = "Resources";}
-                 )
+                )
                 .AddDataAnnotationsLocalization();*/
 
         }
@@ -178,6 +179,10 @@ namespace MVCApp
             app.UseRouting();
 
             // You can Add middleware for pipelining of request here (after routing)
+
+            // You can add a or some middleware(s) to be used in the pipeline 
+            // As this template middleware clas, you can see this in Controllers/TemplateMiddleware.cs
+            //app.UseMiddleware<TemplateMiddleware>();
 
             // Line below is added when we use Identity service for authentication
             //app.UseAuthentication();
