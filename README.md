@@ -10,6 +10,7 @@ Before you could edit this template properly, I suggest you to learn basics of t
    * Serialize-deserialize
    * API
    * MVC (Model-View-Controller) architecture
+   * SQL Database
 2. [C# language](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/)
    * Syntax
    * Object-Oriented
@@ -37,9 +38,9 @@ Before you could edit this template properly, I suggest you to learn basics of t
 
 ## Tools Needed
 ---------
-To make editing these code easier, these are tools that you should have and mastered (at least the basics)
+To make edits of these code easier, these are tools that you should have and mastered (at least the basics)
 1. [Visual Studio](https://visualstudio.microsoft.com/) 
-2. API Tester (such as [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/))
+2. API Development App (such as [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/))
 3. Web Browser (such Mozilla, Chrome, etc)
 
 ## Solution Structure
@@ -52,7 +53,7 @@ I classify my program solution into four separate projects, they are
 
 ## Feature Used
 --------
-In these projects I've included template for basic and additional features of an ASP .NET Core project, they are
+In these projects, I've included template for basic and additional features of an ASP .NET Core project, they are
 1. Authentication [ *MVCApp* ]
 2. Localization and globalization [ *MVCApp* ]
 3. Custom Middleware [ *MVCApp* | *WebAPI* ]
